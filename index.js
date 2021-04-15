@@ -26,4 +26,9 @@ const disRepetitions = 256;
   const fftChart = new Chart({ title: "FFT" });
   fftChart.setData(x, fftSpectrum);
   await fftChart.generateImage("./examples/fft.png");
+
+  const deviationChart = new Chart({ title: "Deviation: DFT vs FFT" });
+  const deviation = dftSpectrum.map((i, index) => Math.abs(i - fftSpectrum[index]))
+  deviationChart.setData(x, deviation);
+  await deviationChart.generateImage("./examples/deviation.png");
 })();

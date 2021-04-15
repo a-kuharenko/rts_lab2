@@ -21,7 +21,7 @@ class Chart {
         datasets: [
           {
             label: this.title,
-            data: this.y,
+            data: [...this.y],
             fill: false,
             borderColor: "rgb(75, 192, 192)",
             backgroundColor: "rgb(75, 192, 192)",
@@ -31,13 +31,17 @@ class Chart {
         ],
       },
     };
-    const chart = ChartJSImage()
-      .chart(configuration)
-      .backgroundColor("white")
-      .width(this.width)
-      .height(this.height);
-    const image = await chart.toBuffer();
-    fs.writeFileSync(path, image);
+    try {
+      const chart = ChartJSImage()
+        .chart(configuration)
+        .backgroundColor("white")
+        .width(this.width)
+        .height(this.height);
+      const image = await chart.toBuffer();
+      fs.writeFileSync(path, image);
+    } catch (err) {
+      console.log(err);
+    }
   }
 }
 
